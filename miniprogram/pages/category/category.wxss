@@ -1,0 +1,149 @@
+.page {
+  padding-bottom: 60rpx;
+}
+
+/* Tab 切换 */
+.tab-row {
+  display: flex;
+  background: #fff;
+  margin: 20rpx;
+  border-radius: 12rpx;
+  overflow: hidden;
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 24rpx;
+  font-size: 34rpx;
+  color: #666;
+  border-bottom: 4rpx solid transparent;
+}
+
+.tab-item.active {
+  font-weight: bold;
+}
+
+.tab-item.active.expense { color: #e74c3c; border-color: #e74c3c; }
+.tab-item.active.income { color: #07c160; border-color: #07c160; }
+
+/* 分类列表 */
+.category-list {
+  margin: 0 20rpx;
+  background: #fff;
+  border-radius: 12rpx;
+  overflow: hidden;
+}
+
+.category-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.cat-left {
+  display: flex;
+  align-items: center;
+}
+
+.cat-icon {
+  font-size: 40rpx;
+  margin-right: 16rpx;
+}
+
+.cat-name {
+  font-size: 34rpx;
+}
+
+.default-tag {
+  font-size: 24rpx;
+  color: #07c160;
+  border: 1rpx solid #07c160;
+  border-radius: 6rpx;
+  padding: 2rpx 10rpx;
+  margin-left: 12rpx;
+}
+
+.cat-actions {
+  display: flex;
+  gap: 20rpx;
+}
+
+.action-btn {
+  font-size: 30rpx;
+  padding: 8rpx 16rpx;
+  border-radius: 8rpx;
+}
+
+.action-btn.edit { color: #3498db; border: 1rpx solid #3498db; }
+.action-btn.delete { color: #e74c3c; border: 1rpx solid #e74c3c; }
+
+/* 添加按钮 */
+.add-btn {
+  margin: 30rpx 20rpx;
+  background: #07c160;
+  color: #fff;
+  font-size: 34rpx;
+  border-radius: 12rpx;
+}
+
+/* 弹窗 */
+.modal-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 100;
+}
+
+.modal {
+  position: fixed;
+  top: 40%;
+  left: 80rpx;
+  right: 80rpx;
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 40rpx;
+  z-index: 101;
+}
+
+.modal-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 30rpx;
+}
+
+.modal-input {
+  border: 1rpx solid #ddd;
+  border-radius: 8rpx;
+  padding: 16rpx 20rpx;
+  font-size: 34rpx;
+  margin-bottom: 30rpx;
+}
+
+.modal-btns {
+  display: flex;
+  gap: 20rpx;
+}
+
+.modal-btn {
+  flex: 1;
+  font-size: 32rpx;
+  border-radius: 8rpx;
+  padding: 16rpx;
+}
+
+.modal-btn.cancel {
+  background: #f5f5f5;
+  color: #666;
+}
+
+.modal-btn.confirm {
+  background: #07c160;
+  color: #fff;
+}

@@ -1,0 +1,36 @@
+<view class="page">
+  <!-- 月份选择 -->
+  <view class="section">
+    <text class="s-label">预算月份</text>
+    <picker mode="date" fields="month" value="{{month}}" bindchange="onMonthChange">
+      <view class="s-value picker-val">{{monthLabel}}</view>
+    </picker>
+  </view>
+
+  <!-- 预算金额 -->
+  <view class="section">
+    <text class="s-label">预算金额</text>
+    <view class="amount-box">
+      <text class="currency">¥</text>
+      <input class="amount-input" type="digit" placeholder="0.00"
+             value="{{amount}}" bindinput="onAmountInput" />
+    </view>
+  </view>
+
+  <!-- 当月已支出 -->
+  <view class="section">
+    <text class="s-label">本月已支出</text>
+    <text class="spent-text">¥{{currentSpent}}</text>
+  </view>
+
+  <!-- 比例显示 -->
+  <view class="section" wx:if="{{currentBudget > 0}}">
+    <text class="s-label">预算使用情况</text>
+    <view class="progress-bar">
+      <view class="progress-fill {{percent > 80 ? 'over' : ''}}" style="width: {{percent > 100 ? 100 : percent}}%"></view>
+    </view>
+    <text class="percent-text">{{percent}}%</text>
+  </view>
+
+  <button class="save-btn" bindtap="onSave">保存预算</button>
+</view>

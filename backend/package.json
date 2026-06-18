@@ -1,0 +1,20 @@
+{
+  "name": "expense-tracker-backend",
+  "version": "1.0.0",
+  "description": "智能记账本后端服务",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "sql.js": "^1.10.0",
+    "cors": "^2.8.5",
+    "jsonwebtoken": "^9.0.0",
+    "axios": "^1.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  }
+}

@@ -1,0 +1,48 @@
+<view class="page">
+  <!-- 收支类型切换 -->
+  <view class="type-toggle">
+    <view class="toggle-item {{type === 'expense' ? 'active expense' : ''}}"
+          bindtap="onSwitchType" data-type="expense">支出</view>
+    <view class="toggle-item {{type === 'income' ? 'active income' : ''}}"
+          bindtap="onSwitchType" data-type="income">收入</view>
+  </view>
+
+  <!-- 分类选择 -->
+  <view class="section-title">选择分类</view>
+  <view class="category-grid">
+    <view class="category-item {{selectedCategoryId === item.id ? 'selected' : ''}}"
+          wx:for="{{categories}}" wx:key="id"
+          bindtap="onSelectCategory" data-id="{{item.id}}">
+      <text class="cat-icon">💰</text>
+      <text class="cat-name">{{item.name}}</text>
+    </view>
+  </view>
+
+  <!-- 金额输入 -->
+  <view class="section-title">金额</view>
+  <view class="amount-box">
+    <text class="currency">¥</text>
+    <input class="amount-input" type="digit" placeholder="0.00"
+           value="{{amount}}" bindinput="onAmountInput" focus="{{true}}" />
+  </view>
+
+  <!-- 日期 -->
+  <view class="form-row">
+    <text class="form-label">日期</text>
+    <picker mode="date" value="{{recordDate}}" bindchange="onDateChange">
+      <view class="form-value">{{recordDate}}</view>
+    </picker>
+  </view>
+
+  <!-- 备注 -->
+  <view class="form-row">
+    <text class="form-label">备注</text>
+    <input class="form-input" placeholder="选填" value="{{note}}" bindinput="onNoteInput" />
+  </view>
+
+  <!-- 保存按钮 -->
+  <button class="save-btn" bindtap="onSave" disabled="{{!canSave}}">保存</button>
+
+  <!-- 编辑模式下显示删除 -->
+  <button class="delete-btn" wx:if="{{isEdit}}" bindtap="onDelete">删除此记录</button>
+</view>

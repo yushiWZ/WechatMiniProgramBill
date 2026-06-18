@@ -1,0 +1,178 @@
+.page {
+  padding-bottom: 60rpx;
+}
+
+/* 月份选择 */
+.month-selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30rpx;
+  background: #fff;
+  margin: 20rpx;
+  border-radius: 12rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.06);
+}
+
+.month-arrow {
+  padding: 10rpx 30rpx;
+  font-size: 32rpx;
+  color: #07c160;
+}
+
+.month-text {
+  font-size: 38rpx;
+  font-weight: bold;
+  min-width: 200rpx;
+  text-align: center;
+}
+
+/* 汇总 */
+.summary-row {
+  display: flex;
+  margin: 0 20rpx 20rpx;
+  gap: 16rpx;
+}
+
+.summary-item {
+  flex: 1;
+  background: #fff;
+  border-radius: 12rpx;
+  padding: 24rpx 16rpx;
+  text-align: center;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.06);
+}
+
+.s-label {
+  display: block;
+  font-size: 28rpx;
+  color: #999;
+  margin-bottom: 8rpx;
+}
+
+.s-value {
+  font-size: 34rpx;
+  font-weight: bold;
+}
+
+.s-value.income { color: #07c160; }
+.s-value.expense { color: #e74c3c; }
+
+/* 图表卡片 */
+.chart-card {
+  margin: 0 20rpx 20rpx;
+  background: #fff;
+  border-radius: 12rpx;
+  padding: 24rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.06);
+}
+
+.chart-title {
+  font-size: 34rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+
+.chart-empty {
+  text-align: center;
+  padding: 60rpx 0;
+  color: #ccc;
+}
+
+/* 饼图图例 */
+.pie-legend {
+  margin-bottom: 16rpx;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  padding: 10rpx 0;
+}
+
+.legend-color {
+  width: 24rpx;
+  height: 24rpx;
+  border-radius: 4rpx;
+  margin-right: 12rpx;
+}
+
+.legend-name {
+  flex: 1;
+  font-size: 30rpx;
+}
+
+.legend-value {
+  font-size: 28rpx;
+  color: #999;
+}
+
+/* 占比条 */
+.pie-bar {
+  display: flex;
+  height: 20rpx;
+  border-radius: 10rpx;
+  overflow: hidden;
+}
+
+.bar-segment {
+  min-width: 4rpx;
+}
+
+/* 柱状图 */
+.bar-chart {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  height: 300rpx;
+  padding-top: 20rpx;
+}
+
+.bar-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 4rpx;
+  height: 240rpx;
+}
+
+.bar {
+  width: 24rpx;
+  border-radius: 4rpx 4rpx 0 0;
+  min-height: 4rpx;
+  transition: height 0.5s;
+}
+
+.income-bar { background: #07c160; }
+.expense-bar { background: #e74c3c; }
+
+.bar-label {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 8rpx;
+}
+
+.chart-legend-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  margin-top: 16rpx;
+  font-size: 28rpx;
+  color: #666;
+}
+
+.legend-dot {
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+}
+
+.income-dot { background: #07c160; }
+.expense-dot { background: #e74c3c; }

@@ -1,0 +1,39 @@
+<view class="page">
+  <!-- 类型切换 -->
+  <view class="tab-row">
+    <view class="tab-item {{activeTab === 'expense' ? 'active expense' : ''}}"
+          bindtap="onSwitchTab" data-type="expense">支出分类</view>
+    <view class="tab-item {{activeTab === 'income' ? 'active income' : ''}}"
+          bindtap="onSwitchTab" data-type="income">收入分类</view>
+  </view>
+
+  <!-- 分类列表 -->
+  <view class="category-list">
+    <view class="category-row" wx:for="{{categories}}" wx:key="id">
+      <view class="cat-left">
+        <text class="cat-icon">💰</text>
+        <text class="cat-name">{{item.name}}</text>
+        <text class="default-tag" wx:if="{{item.is_default}}">系统</text>
+      </view>
+      <view class="cat-actions" wx:if="{{!item.is_default}}">
+        <text class="action-btn edit" bindtap="onEdit" data-id="{{item.id}}" data-name="{{item.name}}">编辑</text>
+        <text class="action-btn delete" bindtap="onDelete" data-id="{{item.id}}">删除</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 添加按钮 -->
+  <button class="add-btn" bindtap="onAdd">添加分类</button>
+
+  <!-- 编辑/添加弹窗 -->
+  <view class="modal-mask" wx:if="{{showModal}}" bindtap="onCloseModal"></view>
+  <view class="modal" wx:if="{{showModal}}">
+    <view class="modal-title">{{modalTitle}}</view>
+    <input class="modal-input" placeholder="分类名称" value="{{modalName}}" bindinput="onModalNameInput"
+           maxlength="8" focus="{{true}}" />
+    <view class="modal-btns">
+      <button class="modal-btn cancel" bindtap="onCloseModal">取消</button>
+      <button class="modal-btn confirm" bindtap="onModalConfirm">确定</button>
+    </view>
+  </view>
+</view>

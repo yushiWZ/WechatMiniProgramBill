@@ -1,0 +1,61 @@
+<view class="page">
+  <!-- 本月收支汇总 -->
+  <view class="summary-row">
+    <view class="summary-card">
+      <view class="summary-label">本月收入</view>
+      <view class="summary-amount income">+{{incomeTotal}}</view>
+    </view>
+    <view class="summary-card">
+      <view class="summary-label">本月支出</view>
+      <view class="summary-amount expense">-{{expenseTotal}}</view>
+    </view>
+    <view class="summary-card">
+      <view class="summary-label">本月结余</view>
+      <view class="summary-amount {{balance >= 0 ? 'income' : 'expense'}}">{{balance >= 0 ? '+' : ''}}{{balance}}</view>
+    </view>
+  </view>
+
+  <!-- 预算进度 -->
+  <view class="budget-card" wx:if="{{budget > 0}}">
+    <view class="budget-header">
+      <text>月度预算</text>
+      <text class="budget-text">¥{{expenseTotal}} / ¥{{budget}}</text>
+    </view>
+    <view class="progress-bar">
+      <view class="progress-fill {{budgetPercent > 80 ? 'over' : ''}}" style="width: {{budgetPercent > 100 ? 100 : budgetPercent}}%"></view>
+    </view>
+    <view class="budget-status">
+      <text wx:if="{{budgetPercent >= 100}}">⚠ 已超预算</text>
+      <text wx:elif="{{budgetPercent >= 80}}">⚡ 即将超预算</text>
+      <text wx:else>剩余 ¥{{budget - expenseTotal}}</text>
+    </view>
+  </view>
+
+  <!-- 记录列表 -->
+  <view class="record-section">
+    <view wx:if="{{groups.length === 0}}" class="empty-tip">
+      <text>暂无记录，点击下方 + 开始记账</text>
+    </view>
+    <block wx:for="{{groups}}" wx:key="dateLabel">
+      <view class="date-header">{{item.dateLabel}}</view>
+      <view class="record-item" wx:for="{{item.records}}" wx:for-item="rec" wx:key="id"
+            bindtap="onRecordTap" data-id="{{rec.id}}">
+        <view class="record-left">
+          <view class="category-icon">{{rec.category_icon || '💰'}}</view>
+          <view class="record-info">
+            <text class="category-name">{{rec.category_name || '未分类'}}</text>
+            <text class="record-note" wx:if="{{rec.note}}">{{rec.note}}</text>
+          </view>
+        </view>
+        <text class="record-amount {{rec.type === 'income' ? 'income' : 'expense'}}">
+          {{rec.type === 'income' ? '+' : '-'}}{{rec.amount}}
+        </text>
+      </view>
+    </block>
+  </view>
+
+  <!-- 浮动按钮 -->
+  <view class="fab" bindtap="onAddRecord">
+    <text class="fab-text">+</text>
+  </view>
+</view>

@@ -1,0 +1,65 @@
+<view class="page">
+  <!-- 月份选择 -->
+  <view class="month-selector">
+    <view class="month-arrow" bindtap="onPrevMonth">◀</view>
+    <text class="month-text">{{monthLabel}}</text>
+    <view class="month-arrow" bindtap="onNextMonth">▶</view>
+  </view>
+
+  <!-- 月度汇总 -->
+  <view class="summary-row">
+    <view class="summary-item income">
+      <text class="s-label">收入</text>
+      <text class="s-value">+{{incomeTotal}}</text>
+    </view>
+    <view class="summary-item expense">
+      <text class="s-label">支出</text>
+      <text class="s-value">-{{expenseTotal}}</text>
+    </view>
+    <view class="summary-item">
+      <text class="s-label">结余</text>
+      <text class="s-value {{balance >= 0 ? 'income' : 'expense'}}">{{balance >= 0 ? '+' : ''}}{{balance}}</text>
+    </view>
+  </view>
+
+  <!-- 饼图：分类支出占比 -->
+  <view class="chart-card">
+    <view class="chart-title">分类支出占比</view>
+    <view wx:if="{{pieData.length === 0}}" class="chart-empty">本月暂无支出数据</view>
+    <view wx:else class="pie-chart">
+      <!-- 简易环形图 -->
+      <view class="pie-legend">
+        <view class="legend-item" wx:for="{{pieData}}" wx:key="categoryName">
+          <view class="legend-color" style="background: {{pieColors[index]}}"></view>
+          <text class="legend-name">{{item.categoryName}}</text>
+          <text class="legend-value">¥{{item.totalAmount}} ({{item.percentage}}%)</text>
+        </view>
+      </view>
+      <!-- 简易柱状占比条 -->
+      <view class="pie-bar">
+        <view class="bar-segment" wx:for="{{pieData}}" wx:key="categoryName"
+              style="flex: {{item.totalAmount}}; background: {{pieColors[index]}}">
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 柱状图：月度趋势 -->
+  <view class="chart-card">
+    <view class="chart-title">近6个月收支趋势</view>
+    <view wx:if="{{trendData.length === 0}}" class="chart-empty">暂无数据</view>
+    <view wx:else class="bar-chart">
+      <view class="bar-group" wx:for="{{trendData}}" wx:key="month">
+        <view class="bars">
+          <view class="bar income-bar" style="height: {{item.incomeHeight}}px"></view>
+          <view class="bar expense-bar" style="height: {{item.expenseHeight}}px"></view>
+        </view>
+        <text class="bar-label">{{item.monthShort}}</text>
+      </view>
+    </view>
+    <view class="chart-legend-row">
+      <view class="legend-dot income-dot"></view><text>收入</text>
+      <view class="legend-dot expense-dot"></view><text>支出</text>
+    </view>
+  </view>
+</view>

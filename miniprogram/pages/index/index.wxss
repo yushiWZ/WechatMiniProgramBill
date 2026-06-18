@@ -1,0 +1,181 @@
+.page {
+  padding-bottom: 120rpx;
+}
+
+/* 收支汇总 */
+.summary-row {
+  display: flex;
+  padding: 20rpx;
+  gap: 16rpx;
+}
+
+.summary-card {
+  flex: 1;
+  background: #fff;
+  border-radius: 12rpx;
+  padding: 24rpx 16rpx;
+  text-align: center;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.06);
+}
+
+.summary-label {
+  font-size: 28rpx;
+  color: #999;
+  margin-bottom: 8rpx;
+}
+
+.summary-amount {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.summary-amount.income { color: #07c160; }
+.summary-amount.expense { color: #e74c3c; }
+
+/* 预算卡片 */
+.budget-card {
+  margin: 0 20rpx 20rpx;
+  background: #fff;
+  border-radius: 12rpx;
+  padding: 24rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.06);
+}
+
+.budget-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12rpx;
+  font-size: 32rpx;
+}
+
+.budget-text {
+  color: #666;
+}
+
+.progress-bar {
+  height: 16rpx;
+  background: #f0f0f0;
+  border-radius: 8rpx;
+  overflow: hidden;
+  margin-bottom: 8rpx;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #07c160;
+  border-radius: 8rpx;
+  transition: width 0.3s;
+}
+
+.progress-fill.over {
+  background: #e74c3c;
+}
+
+.budget-status {
+  font-size: 28rpx;
+  color: #999;
+  text-align: right;
+}
+
+/* 记录列表 */
+.record-section {
+  background: #fff;
+  margin: 0 20rpx;
+  border-radius: 12rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.06);
+}
+
+.empty-tip {
+  text-align: center;
+  padding: 80rpx 0;
+  color: #ccc;
+  font-size: 32rpx;
+}
+
+.date-header {
+  padding: 20rpx 24rpx 12rpx;
+  font-size: 30rpx;
+  color: #999;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.record-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 24rpx;
+  border-bottom: 1rpx solid #f8f8f8;
+}
+
+.record-item:active {
+  background: #f9f9f9;
+}
+
+.record-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.category-icon {
+  width: 72rpx;
+  height: 72rpx;
+  line-height: 72rpx;
+  text-align: center;
+  font-size: 40rpx;
+  background: #f5f5f5;
+  border-radius: 50%;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+
+.record-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.category-name {
+  font-size: 34rpx;
+  margin-bottom: 4rpx;
+}
+
+.record-note {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.record-amount {
+  font-size: 36rpx;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.record-amount.income { color: #07c160; }
+.record-amount.expense { color: #e74c3c; }
+
+/* 浮动按钮 */
+.fab {
+  position: fixed;
+  right: 40rpx;
+  bottom: 220rpx;
+  width: 100rpx;
+  height: 100rpx;
+  background: #07c160;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 24rpx rgba(7, 193, 96, 0.4);
+  z-index: 100;
+}
+
+.fab:active {
+  transform: scale(0.95);
+}
+
+.fab-text {
+  font-size: 60rpx;
+  color: #fff;
+  line-height: 1;
+}

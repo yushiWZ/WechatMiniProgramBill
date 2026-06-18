@@ -1,0 +1,33 @@
+<view class="page">
+  <!-- 用户信息 -->
+  <view class="user-card" bindtap="onLogin">
+    <image class="avatar" src="{{avatarUrl}}" mode="aspectFill" wx:if="{{avatarUrl}}" />
+    <view class="avatar placeholder" wx:else>👤</view>
+    <view class="user-info">
+      <text class="nickname">{{nickname || '点击登录'}}</text>
+      <text class="sub-text">{{nickname ? '已登录' : '使用微信一键登录'}}</text>
+    </view>
+  </view>
+
+  <!-- 菜单 -->
+  <view class="menu-section">
+    <view class="menu-item" bindtap="onGoCategory">
+      <text class="menu-icon">📂</text>
+      <text class="menu-text">分类管理</text>
+      <text class="menu-arrow">▶</text>
+    </view>
+    <view class="menu-item" bindtap="onGoBudget">
+      <text class="menu-icon">💰</text>
+      <text class="menu-text">预算设置</text>
+      <text class="menu-arrow">▶</text>
+    </view>
+  </view>
+
+  <!-- 统计信息 -->
+  <view class="stats-card">
+    <view class="stat-item">
+      <text class="stat-num">{{totalRecords}}</text>
+      <text class="stat-label">总记录数</text>
+    </view>
+  </view>
+</view>

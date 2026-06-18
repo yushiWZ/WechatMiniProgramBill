@@ -1,0 +1,21 @@
+# Dependencies
+backend/node_modules/
+
+# Database (contains user data, auto-generated on first run)
+backend/database.sqlite
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+.claude/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Other files
+*.doc
