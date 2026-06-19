@@ -49,14 +49,14 @@ Page({
         ...(trendRes.list || []).map(i => Math.max(i.income || 0, i.expense || 0)),
         1
       );
-      const barMaxHeight = 200;
+      const barMaxHeight = 200;              // rpx，对应 CSS 中 .bars 容器 240rpx
       const trendData = (trendRes.list || []).map(item => ({
         month: item.month,
         monthShort: item.month.substring(5), // MM
         income: item.income,
         expense: item.expense,
-        incomeHeight: Math.round((item.income / maxAmount) * barMaxHeight) || 2,
-        expenseHeight: Math.round((item.expense / maxAmount) * barMaxHeight) || 2
+        incomeHeight: Math.max(Math.round((item.income / maxAmount) * barMaxHeight), 4),
+        expenseHeight: Math.max(Math.round((item.expense / maxAmount) * barMaxHeight), 4)
       }));
 
       this.setData({ pieData, incomeTotal, expenseTotal, balance, trendData });

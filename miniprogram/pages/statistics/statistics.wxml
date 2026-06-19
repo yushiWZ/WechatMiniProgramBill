@@ -51,8 +51,8 @@
     <view wx:else class="bar-chart">
       <view class="bar-group" wx:for="{{trendData}}" wx:key="month">
         <view class="bars">
-          <view class="bar income-bar" style="height: {{item.incomeHeight}}px"></view>
-          <view class="bar expense-bar" style="height: {{item.expenseHeight}}px"></view>
+          <view class="bar income-bar" style="height: {{item.incomeHeight}}rpx"></view>
+          <view class="bar expense-bar" style="height: {{item.expenseHeight}}rpx"></view>
         </view>
         <text class="bar-label">{{item.monthShort}}</text>
       </view>

@@ -12,6 +12,7 @@ Thumbs.db
 .vscode/
 .idea/
 .claude/
+report/
 
 # Logs
 *.log
@@ -19,3 +20,4 @@ npm-debug.log*
 
 # Other files
 *.doc
+*.docx
