@@ -1,65 +1,105 @@
+<!-- ============================================================
+  统计页 - statistics.wxml
+
+  页面结构（从上到下）：
+    1. 月份选择器（左右箭头切换月份）
+    2. 月度收支汇总（收入 / 支出 / 结余）
+    3. 分类支出占比图表（图例列表 + 横向占比条）
+    4. 近6个月收支趋势柱状图（收入柱 + 支出柱 + 底部图例）
+============================================================ -->
+
 <view class="page">
-  <!-- 月份选择 -->
+
+  <!-- ===================== 区域1：月份选择器 ===================== -->
+  <!-- 左右箭头切换月份，中间显示当前月份标签（如"2026年6月"） -->
   <view class="month-selector">
     <view class="month-arrow" bindtap="onPrevMonth">◀</view>
     <text class="month-text">{{monthLabel}}</text>
     <view class="month-arrow" bindtap="onNextMonth">▶</view>
   </view>
 
-  <!-- 月度汇总 -->
+  <!-- ===================== 区域2：月度收支汇总 ===================== -->
+  <!-- 三栏等宽展示当月收入、支出、结余，与首页汇总类似但增加月份切换能力 -->
   <view class="summary-row">
+    <!-- 收入（绿色） -->
     <view class="summary-item income">
       <text class="s-label">收入</text>
       <text class="s-value">+{{incomeTotal}}</text>
     </view>
+    <!-- 支出（红色） -->
     <view class="summary-item expense">
       <text class="s-label">支出</text>
       <text class="s-value">-{{expenseTotal}}</text>
     </view>
+    <!-- 结余（正数绿色、负数红色） -->
     <view class="summary-item">
       <text class="s-label">结余</text>
       <text class="s-value {{balance >= 0 ? 'income' : 'expense'}}">{{balance >= 0 ? '+' : ''}}{{balance}}</text>
     </view>
   </view>
 
-  <!-- 饼图：分类支出占比 -->
+  <!-- ===================== 区域3：分类支出占比图表 ===================== -->
+  <!-- 白色卡片容器，展示各分类的支出金额和百分比 -->
   <view class="chart-card">
     <view class="chart-title">分类支出占比</view>
+
+    <!-- 空状态：当月无支出时提示 -->
     <view wx:if="{{pieData.length === 0}}" class="chart-empty">本月暂无支出数据</view>
+
+    <!-- 有数据时展示图例 + 占比条 -->
     <view wx:else class="pie-chart">
-      <!-- 简易环形图 -->
+
+      <!-- 图例列表：每行显示 色块 + 分类名 + 金额(百分比) -->
       <view class="pie-legend">
         <view class="legend-item" wx:for="{{pieData}}" wx:key="categoryName">
+          <!-- 色块：颜色与 pieColors 数组对应 -->
           <view class="legend-color" style="background: {{pieColors[index]}}"></view>
+          <!-- 分类名称，flex:1 占据剩余空间 -->
           <text class="legend-name">{{item.categoryName}}</text>
+          <!-- 金额和百分比 -->
           <text class="legend-value">¥{{item.totalAmount}} ({{item.percentage}}%)</text>
         </view>
       </view>
-      <!-- 简易柱状占比条 -->
+
+      <!-- 横向占比条：各分类按金额比例分配宽度（flex值 = totalAmount），形成堆叠条形图 -->
       <view class="pie-bar">
         <view class="bar-segment" wx:for="{{pieData}}" wx:key="categoryName"
               style="flex: {{item.totalAmount}}; background: {{pieColors[index]}}">
         </view>
       </view>
+
     </view>
   </view>
 
-  <!-- 柱状图：月度趋势 -->
+  <!-- ===================== 区域4：近6个月收支趋势柱状图 ===================== -->
+  <!-- 白色卡片容器，展示近6个月收入和支出的对比柱状图 -->
   <view class="chart-card">
     <view class="chart-title">近6个月收支趋势</view>
+
+    <!-- 空状态 -->
     <view wx:if="{{trendData.length === 0}}" class="chart-empty">暂无数据</view>
+
+    <!-- 柱状图区域 -->
     <view wx:else class="bar-chart">
+      <!-- 每个月的柱组：包含收入柱和支出柱，底部显示月份标签 -->
       <view class="bar-group" wx:for="{{trendData}}" wx:key="month">
+        <!-- 双柱容器：收入柱（绿色）和支出柱（红色），底部对齐 -->
         <view class="bars">
+          <!-- 收入柱：高度由 JS 计算得出（按最大值等比缩放） -->
           <view class="bar income-bar" style="height: {{item.incomeHeight}}rpx"></view>
+          <!-- 支出柱：高度由 JS 计算得出 -->
           <view class="bar expense-bar" style="height: {{item.expenseHeight}}rpx"></view>
         </view>
+        <!-- 月份标签（如"01"、"02"等） -->
         <text class="bar-label">{{item.monthShort}}</text>
       </view>
     </view>
+
+    <!-- 柱状图底部图例：绿点=收入，红点=支出 -->
     <view class="chart-legend-row">
       <view class="legend-dot income-dot"></view><text>收入</text>
       <view class="legend-dot expense-dot"></view><text>支出</text>
     </view>
   </view>
+
 </view>

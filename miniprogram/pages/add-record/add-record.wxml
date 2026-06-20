@@ -1,5 +1,21 @@
+<!-- ============================================================
+     添加/编辑记录页面模板 (add-record.wxml)
+     ============================================================
+     页面结构分为以下区域：
+       1. 收支类型切换栏 —— 二选一按钮（支出/收入）
+       2. 分类选择网格 —— 根据当前类型动态展示分类列表
+       3. 金额输入框 —— 数字键盘输入，带 ¥ 前缀
+       4. 日期选择行 —— 微信原生日期 picker
+       5. 备注输入行 —— 单行文本输入，选填
+       6. 保存按钮 —— 表单不满足条件时 disabled
+       7. 删除按钮 —— 仅编辑模式下显示
+     ============================================================ -->
+
 <view class="page">
-  <!-- 收支类型切换 -->
+
+  <!-- ===== 区域1: 收支类型切换 =====
+       使用 flex 布局的两个按钮，选中项通过 active + expense/income 类名高亮。
+       data-type 传递类型标识，点击触发 onSwitchType 切换类型并重新加载分类。 -->
   <view class="type-toggle">
     <view class="toggle-item {{type === 'expense' ? 'active expense' : ''}}"
           bindtap="onSwitchType" data-type="expense">支出</view>
@@ -7,7 +23,10 @@
           bindtap="onSwitchType" data-type="income">收入</view>
   </view>
 
-  <!-- 分类选择 -->
+  <!-- ===== 区域2: 分类选择网格 =====
+       标题 + 4列网格布局，wx:for 遍历 categories 数组渲染每个分类项。
+       选中状态通过 selected 类名显示绿色边框和浅绿背景。
+       data-id 传递分类 ID，点击触发 onSelectCategory。 -->
   <view class="section-title">选择分类</view>
   <view class="category-grid">
     <view class="category-item {{selectedCategoryId === item.id ? 'selected' : ''}}"
@@ -18,7 +37,10 @@
     </view>
   </view>
 
-  <!-- 金额输入 -->
+  <!-- ===== 区域3: 金额输入 =====
+       横向排列的 ¥ 符号和数字输入框。
+       type="digit" 调起带小数点的数字键盘。
+       focus="{{true}}" 使页面加载时自动聚焦，方便用户直接输入。 -->
   <view class="section-title">金额</view>
   <view class="amount-box">
     <text class="currency">¥</text>
@@ -26,7 +48,9 @@
            value="{{amount}}" bindinput="onAmountInput" focus="{{true}}" />
   </view>
 
-  <!-- 日期 -->
+  <!-- ===== 区域4: 日期选择 =====
+       使用微信原生 picker（mode="date"），点击后弹出日期选择滚轮。
+       选中日期后触发 onDateChange 更新 recordDate。 -->
   <view class="form-row">
     <text class="form-label">日期</text>
     <picker mode="date" value="{{recordDate}}" bindchange="onDateChange">
@@ -34,15 +58,21 @@
     </picker>
   </view>
 
-  <!-- 备注 -->
+  <!-- ===== 区域5: 备注输入 =====
+       单行文本输入框，placeholder 为"选填"，不影响保存条件校验。 -->
   <view class="form-row">
     <text class="form-label">备注</text>
     <input class="form-input" placeholder="选填" value="{{note}}" bindinput="onNoteInput" />
   </view>
 
-  <!-- 保存按钮 -->
+  <!-- ===== 区域6: 保存按钮 =====
+       canSave 为 false 时按钮置灰（disabled），阻止提交。
+       点击触发 onSave，根据 isEdit 执行新增或更新操作。 -->
   <button class="save-btn" bindtap="onSave" disabled="{{!canSave}}">保存</button>
 
-  <!-- 编辑模式下显示删除 -->
+  <!-- ===== 区域7: 删除按钮（仅编辑模式） =====
+       通过 wx:if="{{isEdit}}" 控制显示，只有编辑已有记录时才出现。
+       点击触发 onDelete，弹出确认对话框后执行删除。 -->
   <button class="delete-btn" wx:if="{{isEdit}}" bindtap="onDelete">删除此记录</button>
+
 </view>

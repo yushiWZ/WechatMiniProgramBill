@@ -1,9 +1,21 @@
+/* ============================================================
+ * 添加/编辑记录页面样式 (add-record.wxss)
+ * ============================================================
+ * 整体采用浅灰背景 + 白色卡片的布局风格：
+ *   - 页面背景为浅灰色（由全局 app.wxss 设定）
+ *   - 各功能区域以白色圆角卡片形式呈现
+ *   - 主色调：绿色 #07c160（收入/选中态），红色 #e74c3c（支出/删除）
+ * ============================================================ */
+
+/* 页面容器：四周留白，底部额外加大以避免被操作按钮遮挡 */
 .page {
   padding: 20rpx;
   padding-bottom: 60rpx;
 }
 
-/* 类型切换 */
+/* ===== 收支类型切换栏 =====
+ * 两个等宽按钮横向排列，整体为灰色圆角容器。
+ * 未选中项为灰色文字，选中项填充对应颜色（支出红/收入绿）。 */
 .type-toggle {
   display: flex;
   background: #f0f0f0;
@@ -21,15 +33,19 @@
   transition: all 0.3s;
 }
 
+/* 选中态通用样式：白色加粗文字 */
 .toggle-item.active {
   color: #fff;
   font-weight: bold;
 }
 
+/* 选中态颜色区分：支出红色，收入绿色 */
 .toggle-item.active.expense { background: #e74c3c; }
 .toggle-item.active.income { background: #07c160; }
 
-/* 分类 */
+/* ===== 分类选择区域 =====
+ * 标题为灰色小字，下方为 4 列网格布局的分类项。
+ * 每个分类项为白色圆角卡片，选中后变为浅绿背景 + 绿色边框。 */
 .section-title {
   font-size: 32rpx;
   color: #999;
@@ -44,6 +60,7 @@
   margin-bottom: 30rpx;
 }
 
+/* 每个分类项宽度为 25%（4列），减去 gap 补偿值 */
 .category-item {
   width: calc(25% - 12rpx);
   text-align: center;
@@ -53,6 +70,7 @@
   border: 2rpx solid transparent;
 }
 
+/* 选中态：绿色边框 + 浅绿背景，提供明确的视觉反馈 */
 .category-item.selected {
   border-color: #07c160;
   background: #f0fff4;
@@ -69,7 +87,9 @@
   color: #666;
 }
 
-/* 金额输入 */
+/* ===== 金额输入区域 =====
+ * 白色卡片内横向排列 ¥ 符号和输入框。
+ * 金额使用大号加粗字体，突出核心数据。 */
 .amount-box {
   display: flex;
   align-items: center;
@@ -92,7 +112,9 @@
   font-weight: bold;
 }
 
-/* 表单项 */
+/* ===== 表单行（日期、备注） =====
+ * 白色卡片样式的水平行，左侧为固定宽度的标签，右侧为输入/选择区域。
+ * 使用 flex 布局实现左固定右自适应的排列方式。 */
 .form-row {
   display: flex;
   align-items: center;
@@ -118,7 +140,9 @@
   font-size: 34rpx;
 }
 
-/* 保存按钮 */
+/* ===== 保存按钮 =====
+ * 绿色主色调的大号圆角按钮，宽度默认撑满父容器。
+ * disabled 状态时变为灰色，给用户明确的不可操作反馈。 */
 .save-btn {
   margin-top: 40rpx;
   background: #07c160;
@@ -131,6 +155,9 @@
   background: #ccc;
 }
 
+/* ===== 删除按钮（仅编辑模式显示） =====
+ * 白底红边的次要操作按钮，与保存按钮形成主次区分。
+ * 红色文字 + 红色边框传达"危险操作"的视觉警示。 */
 .delete-btn {
   margin-top: 20rpx;
   background: #fff;

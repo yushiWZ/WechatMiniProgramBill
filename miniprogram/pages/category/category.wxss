@@ -1,8 +1,19 @@
+/* ============================================================
+ * 分类管理页面样式 (category.wxss)
+ * ============================================================
+ * 整体风格与添加记录页保持一致：
+ *   - 浅灰背景 + 白色圆角卡片
+ *   - 主色调：绿色 #07c160，危险色：红色 #e74c3c，编辑色：蓝色 #3498db
+ * ============================================================ */
+
+/* 页面容器：底部留白避免被按钮遮挡 */
 .page {
   padding-bottom: 60rpx;
 }
 
-/* Tab 切换 */
+/* ===== Tab 切换栏 =====
+ * 白色背景卡片内的两个等宽 Tab，选中项底部显示彩色下划线。
+ * 使用 border-bottom 实现下划线效果，未选中时为透明色。 */
 .tab-row {
   display: flex;
   background: #fff;
@@ -20,14 +31,18 @@
   border-bottom: 4rpx solid transparent;
 }
 
+/* 选中态：文字加粗，配合下方颜色类使用 */
 .tab-item.active {
   font-weight: bold;
 }
 
+/* Tab 颜色区分：支出红色下划线，收入绿色下划线 */
 .tab-item.active.expense { color: #e74c3c; border-color: #e74c3c; }
 .tab-item.active.income { color: #07c160; border-color: #07c160; }
 
-/* 分类列表 */
+/* ===== 分类列表区域 =====
+ * 白色卡片容器，内部每行通过底部细线分隔。
+ * 列表行采用左右布局：左侧信息 + 右侧操作按钮。 */
 .category-list {
   margin: 0 20rpx;
   background: #fff;
@@ -35,6 +50,7 @@
   overflow: hidden;
 }
 
+/* 列表行：两端对齐，左信息右操作 */
 .category-row {
   display: flex;
   align-items: center;
@@ -43,6 +59,7 @@
   border-bottom: 1rpx solid #f5f5f5;
 }
 
+/* 左侧信息区：图标 + 名称 + 系统标签水平排列 */
 .cat-left {
   display: flex;
   align-items: center;
@@ -57,6 +74,7 @@
   font-size: 34rpx;
 }
 
+/* 系统默认分类标签：绿色小边框标签，与自定义分类区分 */
 .default-tag {
   font-size: 24rpx;
   color: #07c160;
@@ -66,21 +84,25 @@
   margin-left: 12rpx;
 }
 
+/* 右侧操作按钮区：编辑和删除按钮之间留有间距 */
 .cat-actions {
   display: flex;
   gap: 20rpx;
 }
 
+/* 操作按钮通用样式：小号字体 + 圆角边框 */
 .action-btn {
   font-size: 30rpx;
   padding: 8rpx 16rpx;
   border-radius: 8rpx;
 }
 
+/* 编辑按钮蓝色，删除按钮红色，通过颜色传达操作性质 */
 .action-btn.edit { color: #3498db; border: 1rpx solid #3498db; }
 .action-btn.delete { color: #e74c3c; border: 1rpx solid #e74c3c; }
 
-/* 添加按钮 */
+/* ===== 添加分类按钮 =====
+ * 绿色主色调大按钮，位于列表下方，宽度撑满（减去左右 margin）。 */
 .add-btn {
   margin: 30rpx 20rpx;
   background: #07c160;
@@ -89,7 +111,11 @@
   border-radius: 12rpx;
 }
 
-/* 弹窗 */
+/* ===== 模态弹窗 =====
+ * 由遮罩层（modal-mask）和弹窗主体（modal）两层叠加实现：
+ *   - 遮罩层：固定定位铺满全屏，半透明黑色，z-index=100
+ *   - 弹窗主体：固定定位在屏幕 40% 高度处，白色圆角，z-index=101
+ * 点击遮罩层可关闭弹窗（bindtap="onCloseModal"）。 */
 .modal-mask {
   position: fixed;
   top: 0;
@@ -118,6 +144,7 @@
   margin-bottom: 30rpx;
 }
 
+/* 输入框：灰色边框，圆角样式，获得焦点时自动弹出键盘 */
 .modal-input {
   border: 1rpx solid #ddd;
   border-radius: 8rpx;
@@ -126,6 +153,7 @@
   margin-bottom: 30rpx;
 }
 
+/* 底部按钮区：取消和确认两个等宽按钮横向排列 */
 .modal-btns {
   display: flex;
   gap: 20rpx;
@@ -138,6 +166,7 @@
   padding: 16rpx;
 }
 
+/* 取消按钮灰色，确认按钮绿色，主次分明 */
 .modal-btn.cancel {
   background: #f5f5f5;
   color: #666;

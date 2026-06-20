@@ -1,29 +1,48 @@
+<!-- ============================================================
+  首页（记账主页）- index.wxml
+
+  页面结构（从上到下）：
+    1. 本月收支汇总卡片区域（收入 / 支出 / 结余）
+    2. 月度预算进度卡片（条件渲染：仅当用户设置了预算时显示）
+    3. 收支记录列表（按日期分组展示，无记录时显示空状态提示）
+    4. 右下角浮动"+"按钮（用于快速跳转新增记账页面）
+============================================================ -->
+
 <view class="page">
-  <!-- 本月收支汇总 -->
+
+  <!-- ===================== 区域1：本月收支汇总 ===================== -->
+  <!-- 三栏等宽布局，分别展示收入（绿色）、支出（红色）、结余（动态颜色） -->
   <view class="summary-row">
+    <!-- 收入卡片 -->
     <view class="summary-card">
       <view class="summary-label">本月收入</view>
       <view class="summary-amount income">+{{incomeTotal}}</view>
     </view>
+    <!-- 支出卡片 -->
     <view class="summary-card">
       <view class="summary-label">本月支出</view>
       <view class="summary-amount expense">-{{expenseTotal}}</view>
     </view>
+    <!-- 结余卡片：正数显示绿色带"+"号，负数显示红色 -->
     <view class="summary-card">
       <view class="summary-label">本月结余</view>
       <view class="summary-amount {{balance >= 0 ? 'income' : 'expense'}}">{{balance >= 0 ? '+' : ''}}{{balance}}</view>
     </view>
   </view>
 
-  <!-- 预算进度 -->
+  <!-- ===================== 区域2：月度预算进度 ===================== -->
+  <!-- 仅当 budget > 0（用户已设置月度预算）时显示此卡片 -->
   <view class="budget-card" wx:if="{{budget > 0}}">
+    <!-- 预算标题行：左侧"月度预算"文字，右侧已用/总额 -->
     <view class="budget-header">
       <text>月度预算</text>
       <text class="budget-text">¥{{expenseTotal}} / ¥{{budget}}</text>
     </view>
+    <!-- 进度条：宽度按百分比动态计算，超过80%变为红色警告 -->
     <view class="progress-bar">
       <view class="progress-fill {{budgetPercent > 80 ? 'over' : ''}}" style="width: {{budgetPercent > 100 ? 100 : budgetPercent}}%"></view>
     </view>
+    <!-- 预算状态提示：根据使用百分比显示不同警告级别 -->
     <view class="budget-status">
       <text wx:if="{{budgetPercent >= 100}}">⚠ 已超预算</text>
       <text wx:elif="{{budgetPercent >= 80}}">⚡ 即将超预算</text>
@@ -31,22 +50,33 @@
     </view>
   </view>
 
-  <!-- 记录列表 -->
+  <!-- ===================== 区域3：收支记录列表 ===================== -->
+  <!-- 按日期分组展示，每组有日期标题头，组内逐条列出具体记录 -->
   <view class="record-section">
+    <!-- 空状态提示：当没有任何记录时，引导用户点击"+"按钮开始记账 -->
     <view wx:if="{{groups.length === 0}}" class="empty-tip">
       <text>暂无记录，点击下方 + 开始记账</text>
     </view>
+
+    <!-- 按日期分组循环渲染 -->
     <block wx:for="{{groups}}" wx:key="dateLabel">
+      <!-- 日期标题头（如"今天 (06/20)"、"昨天 (06/19)"等） -->
       <view class="date-header">{{item.dateLabel}}</view>
+
+      <!-- 组内记录循环：每条记录包含分类图标、名称、备注和金额 -->
       <view class="record-item" wx:for="{{item.records}}" wx:for-item="rec" wx:key="id"
             bindtap="onRecordTap" data-id="{{rec.id}}">
+        <!-- 记录左侧：分类图标 + 分类名称 / 备注信息 -->
         <view class="record-left">
+          <!-- 分类图标：使用 emoji 展示，无图标时默认显示💰 -->
           <view class="category-icon">{{rec.category_icon || '💰'}}</view>
+          <!-- 分类名称与备注（纵向排列） -->
           <view class="record-info">
             <text class="category-name">{{rec.category_name || '未分类'}}</text>
             <text class="record-note" wx:if="{{rec.note}}">{{rec.note}}</text>
           </view>
         </view>
+        <!-- 记录右侧：金额，收入为绿色"+"，支出为红色"-" -->
         <text class="record-amount {{rec.type === 'income' ? 'income' : 'expense'}}">
           {{rec.type === 'income' ? '+' : '-'}}{{rec.amount}}
         </text>
@@ -54,8 +84,10 @@
     </block>
   </view>
 
-  <!-- 浮动按钮 -->
+  <!-- ===================== 区域4：浮动添加按钮（FAB） ===================== -->
+  <!-- 固定在页面右下角的圆形按钮，点击后跳转到新增记账页面 -->
   <view class="fab" bindtap="onAddRecord">
     <text class="fab-text">+</text>
   </view>
+
 </view>

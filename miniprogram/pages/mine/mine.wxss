@@ -1,26 +1,40 @@
+/**
+ * 我的页（个人中心）样式 - mine.wxss
+ *
+ * 整体设计思路：
+ *   页面顶部使用醒目的绿色用户卡片，与微信品牌色一致。
+ *   中部菜单采用常见的列表式布局，白色背景 + 分隔线。
+ *   底部统计卡片居中大字号展示数字。
+ *   整体使用卡片式布局，统一圆角和阴影风格。
+ */
+
+/* ==================== 页面容器 ==================== */
 .page {
   padding: 20rpx;
 }
 
-/* 用户卡片 */
+/* ==================== 用户信息卡片 ==================== */
+/* 绿色背景大卡片，白色文字，作为页面视觉焦点 */
 .user-card {
   display: flex;
   align-items: center;
-  background: #07c160;
+  background: #07c160;       /* 微信品牌绿 */
   padding: 40rpx;
   border-radius: 16rpx;
   margin-bottom: 20rpx;
-  color: #fff;
+  color: #fff;               /* 所有文字为白色 */
 }
 
+/* 头像：圆形，固定尺寸 */
 .avatar {
   width: 100rpx;
   height: 100rpx;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.3);
+  border-radius: 50%;        /* 圆形裁剪 */
+  background: rgba(255,255,255,0.3); /* 半透明白色背景（无头像时可见） */
   margin-right: 24rpx;
 }
 
+/* 无头像时的占位样式：居中显示 emoji */
 .avatar.placeholder {
   display: flex;
   align-items: center;
@@ -28,58 +42,68 @@
   font-size: 54rpx;
 }
 
+/* 用户信息纵向容器（昵称 + 副文字） */
 .user-info {
   display: flex;
   flex-direction: column;
 }
 
+/* 用户昵称：大字号加粗 */
 .nickname {
   font-size: 40rpx;
   font-weight: bold;
   margin-bottom: 4rpx;
 }
 
+/* 副文字（登录状态）：小字号，半透明 */
 .sub-text {
   font-size: 28rpx;
   opacity: 0.8;
 }
 
-/* 菜单 */
+/* ==================== 功能菜单列表 ==================== */
+/* 白色卡片容器，内含多个菜单项 */
 .menu-section {
   background: #fff;
   border-radius: 12rpx;
   margin-bottom: 20rpx;
-  overflow: hidden;
+  overflow: hidden;          /* 圆角裁剪，隐藏溢出的分隔线 */
   box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.06);
 }
 
+/* 单个菜单项：水平排列（图标 + 文字 + 箭头） */
 .menu-item {
   display: flex;
   align-items: center;
   padding: 28rpx 24rpx;
-  border-bottom: 1rpx solid #f5f5f5;
+  border-bottom: 1rpx solid #f5f5f5; /* 底部分隔线 */
 }
 
+/* 菜单项按下时的点击反馈 */
 .menu-item:active {
   background: #f9f9f9;
 }
 
+/* 菜单图标（emoji）：固定字号，右侧留间距 */
 .menu-icon {
   font-size: 40rpx;
   margin-right: 20rpx;
 }
 
+/* 菜单文字：flex:1 占据剩余空间 */
 .menu-text {
   flex: 1;
   font-size: 34rpx;
 }
 
+/* 右侧箭头指示符（灰色小字） */
 .menu-arrow {
   font-size: 26rpx;
   color: #ccc;
 }
 
-/* 统计 */
+/* ==================== 统计信息卡片 ==================== */
+/* 白色卡片容器 */
 .stats-card {
   background: #fff;
   border-radius: 12rpx;
@@ -87,10 +111,12 @@
   box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.06);
 }
 
+/* 单个统计项：居中排列 */
 .stat-item {
   text-align: center;
 }
 
+/* 统计数字：超大字号、加粗、绿色（视觉焦点） */
 .stat-num {
   font-size: 52rpx;
   font-weight: bold;
@@ -98,6 +124,7 @@
   display: block;
 }
 
+/* 统计标签：灰色小字，位于数字下方 */
 .stat-label {
   font-size: 28rpx;
   color: #999;

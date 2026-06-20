@@ -1,21 +1,40 @@
+<!-- ============================================================
+  我的页（个人中心）- mine.wxml
+
+  页面结构（从上到下）：
+    1. 用户信息卡片（绿色背景，展示头像和昵称，点击触发登录）
+    2. 功能菜单列表（分类管理、预算设置）
+    3. 统计信息卡片（显示记账总记录数）
+============================================================ -->
+
 <view class="page">
-  <!-- 用户信息 -->
+
+  <!-- ===================== 区域1：用户信息卡片 ===================== -->
+  <!-- 绿色背景卡片，展示用户头像和昵称 -->
+  <!-- 点击整个卡片触发 onLogin：已登录则无操作，未登录则执行微信一键登录 -->
   <view class="user-card" bindtap="onLogin">
+    <!-- 头像：有头像URL时显示图片，无头像时显示默认占位 emoji -->
     <image class="avatar" src="{{avatarUrl}}" mode="aspectFill" wx:if="{{avatarUrl}}" />
     <view class="avatar placeholder" wx:else>👤</view>
+    <!-- 用户信息区：昵称 + 登录状态文字 -->
     <view class="user-info">
+      <!-- 昵称：未登录时显示"点击登录"引导文字 -->
       <text class="nickname">{{nickname || '点击登录'}}</text>
+      <!-- 副文字：已登录显示"已登录"，未登录显示引导提示 -->
       <text class="sub-text">{{nickname ? '已登录' : '使用微信一键登录'}}</text>
     </view>
   </view>
 
-  <!-- 菜单 -->
+  <!-- ===================== 区域2：功能菜单列表 ===================== -->
+  <!-- 白色卡片中的列表菜单，每项可点击跳转到对应功能页面 -->
   <view class="menu-section">
+    <!-- 分类管理：跳转到分类管理页面，可增删改收支分类 -->
     <view class="menu-item" bindtap="onGoCategory">
       <text class="menu-icon">📂</text>
       <text class="menu-text">分类管理</text>
       <text class="menu-arrow">▶</text>
     </view>
+    <!-- 预算设置：跳转到预算设置页面，设置每月支出预算 -->
     <view class="menu-item" bindtap="onGoBudget">
       <text class="menu-icon">💰</text>
       <text class="menu-text">预算设置</text>
@@ -23,11 +42,14 @@
     </view>
   </view>
 
-  <!-- 统计信息 -->
+  <!-- ===================== 区域3：统计信息卡片 ===================== -->
+  <!-- 展示用户的记账统计数据 -->
   <view class="stats-card">
+    <!-- 总记录数：大字号绿色数字 + 灰色标签 -->
     <view class="stat-item">
       <text class="stat-num">{{totalRecords}}</text>
       <text class="stat-label">总记录数</text>
     </view>
   </view>
+
 </view>

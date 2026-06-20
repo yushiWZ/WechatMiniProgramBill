@@ -1,16 +1,30 @@
+/**
+ * 首页（记账主页）样式 - index.wxss
+ *
+ * 整体设计思路：
+ *   页面采用卡片式布局，各区域使用圆角白色卡片 + 轻微阴影，
+ *   营造层次感和现代感。主色调为微信绿（#07c160），
+ *   支出用红色（#e74c3c）标识，收入用绿色标识。
+ *   尺寸单位统一使用 rpx，适配不同屏幕宽度。
+ */
+
+/* ==================== 页面容器 ==================== */
+/* 底部留出空间，避免内容被自定义 TabBar 遮挡 */
 .page {
   padding-bottom: 120rpx;
 }
 
-/* 收支汇总 */
+/* ==================== 收支汇总区域 ==================== */
+/* 横向三栏等宽排列，使用 flex 布局 */
 .summary-row {
   display: flex;
   padding: 20rpx;
-  gap: 16rpx;
+  gap: 16rpx;              /* 卡片之间的间距 */
 }
 
+/* 单个汇总卡片：白色背景、圆角、居中文字、轻阴影 */
 .summary-card {
-  flex: 1;
+  flex: 1;                  /* 三栏等宽分配 */
   background: #fff;
   border-radius: 12rpx;
   padding: 24rpx 16rpx;
@@ -18,21 +32,25 @@
   box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.06);
 }
 
+/* 汇总标签（"本月收入"等灰色小字） */
 .summary-label {
   font-size: 28rpx;
   color: #999;
   margin-bottom: 8rpx;
 }
 
+/* 汇总金额：大字号加粗 */
 .summary-amount {
   font-size: 36rpx;
   font-weight: bold;
 }
 
+/* 收入金额使用绿色，支出金额使用红色 */
 .summary-amount.income { color: #07c160; }
 .summary-amount.expense { color: #e74c3c; }
 
-/* 预算卡片 */
+/* ==================== 预算卡片 ==================== */
+/* 预算进度区域的整体卡片容器 */
 .budget-card {
   margin: 0 20rpx 20rpx;
   background: #fff;
@@ -41,6 +59,7 @@
   box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.06);
 }
 
+/* 预算头部：标题与金额左右分布 */
 .budget-header {
   display: flex;
   justify-content: space-between;
@@ -48,44 +67,51 @@
   font-size: 32rpx;
 }
 
+/* 预算金额文字（右侧，灰色） */
 .budget-text {
   color: #666;
 }
 
+/* 进度条轨道：浅灰色背景，圆角 */
 .progress-bar {
   height: 16rpx;
   background: #f0f0f0;
   border-radius: 8rpx;
-  overflow: hidden;
+  overflow: hidden;          /* 防止进度填充溢出 */
   margin-bottom: 8rpx;
 }
 
+/* 进度条填充：绿色，带过渡动画 */
 .progress-fill {
   height: 100%;
   background: #07c160;
   border-radius: 8rpx;
-  transition: width 0.3s;
+  transition: width 0.3s;   /* 宽度变化时平滑过渡 */
 }
 
+/* 预算超支时进度条变红（>80% 添加 .over 类） */
 .progress-fill.over {
   background: #e74c3c;
 }
 
+/* 预算状态文字（右对齐，灰色小字） */
 .budget-status {
   font-size: 28rpx;
   color: #999;
   text-align: right;
 }
 
-/* 记录列表 */
+/* ==================== 记录列表区域 ==================== */
+/* 记录列表的整体容器：白色卡片 */
 .record-section {
   background: #fff;
   margin: 0 20rpx;
   border-radius: 12rpx;
-  overflow: hidden;
+  overflow: hidden;          /* 圆角裁剪 */
   box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.06);
 }
 
+/* 空状态提示：居中显示灰色文字 */
 .empty-tip {
   text-align: center;
   padding: 80rpx 0;
@@ -93,6 +119,7 @@
   font-size: 32rpx;
 }
 
+/* 日期分组标题（如"今天"、"昨天"） */
 .date-header {
   padding: 20rpx 24rpx 12rpx;
   font-size: 30rpx;
@@ -100,6 +127,7 @@
   border-bottom: 1rpx solid #f5f5f5;
 }
 
+/* 单条记录项：左右布局，记录信息与金额两端对齐 */
 .record-item {
   display: flex;
   justify-content: space-between;
@@ -108,16 +136,19 @@
   border-bottom: 1rpx solid #f8f8f8;
 }
 
+/* 记录项按下时的点击反馈效果 */
 .record-item:active {
   background: #f9f9f9;
 }
 
+/* 记录左侧区域：图标 + 文字信息水平排列 */
 .record-left {
   display: flex;
   align-items: center;
-  flex: 1;
+  flex: 1;                   /* 占据剩余空间 */
 }
 
+/* 分类图标容器：圆形灰色背景，固定尺寸，居中显示 emoji */
 .category-icon {
   width: 72rpx;
   height: 72rpx;
@@ -125,55 +156,63 @@
   text-align: center;
   font-size: 40rpx;
   background: #f5f5f5;
-  border-radius: 50%;
+  border-radius: 50%;        /* 圆形 */
   margin-right: 16rpx;
-  flex-shrink: 0;
+  flex-shrink: 0;            /* 防止被压缩 */
 }
 
+/* 分类名称与备注的纵向容器 */
 .record-info {
   display: flex;
   flex-direction: column;
 }
 
+/* 分类名称（主文字） */
 .category-name {
   font-size: 34rpx;
   margin-bottom: 4rpx;
 }
 
+/* 备注信息（灰色小字，可选显示） */
 .record-note {
   font-size: 28rpx;
   color: #999;
 }
 
+/* 记录金额：大字号加粗，不可被压缩 */
 .record-amount {
   font-size: 36rpx;
   font-weight: bold;
   flex-shrink: 0;
 }
 
+/* 收入金额绿色，支出金额红色 */
 .record-amount.income { color: #07c160; }
 .record-amount.expense { color: #e74c3c; }
 
-/* 浮动按钮 */
+/* ==================== 浮动添加按钮（FAB） ==================== */
+/* 固定在页面右下角的圆形绿色按钮 */
 .fab {
   position: fixed;
   right: 40rpx;
-  bottom: 220rpx;
+  bottom: 220rpx;            /* 留出 TabBar 的空间 */
   width: 100rpx;
   height: 100rpx;
-  background: #07c160;
-  border-radius: 50%;
+  background: #07c160;       /* 微信绿 */
+  border-radius: 50%;        /* 圆形 */
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8rpx 24rpx rgba(7, 193, 96, 0.4);
-  z-index: 100;
+  box-shadow: 0 8rpx 24rpx rgba(7, 193, 96, 0.4); /* 绿色投影 */
+  z-index: 100;              /* 置于顶层，避免被其他元素遮挡 */
 }
 
+/* 按钮按下时的缩放反馈 */
 .fab:active {
   transform: scale(0.95);
 }
 
+/* 按钮内的"+"号文字：白色大字号 */
 .fab-text {
   font-size: 60rpx;
   color: #fff;

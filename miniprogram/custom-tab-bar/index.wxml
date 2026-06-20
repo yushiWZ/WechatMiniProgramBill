@@ -1,7 +1,54 @@
+<!--
+  ============================================================
+  自定义 TabBar 组件 - 模板结构层（WXML）
+  ============================================================
+
+  【概述】
+  本文件定义了自定义底部导航栏的视图结构。
+  整体采用"容器 + 循环子项"的经典布局模式：
+  外层 .tab-bar 作为固定定位的底部容器，
+  内层通过 wx:for 指令循环渲染 list 数组中的每一个 Tab 项。
+
+  【结构层级】
+  .tab-bar（底部固定容器）
+    └── .tab-item（单个 Tab 项，循环渲染）
+          ├── .tab-icon（Emoji 图标）
+          └── .tab-text（文字标签，选中时高亮）
+
+  【数据绑定说明】
+  - wx:for="{{list}}"  遍历 JS 中 data.list 数组，生成对应数量的 Tab 项
+  - wx:key="index"     使用数组索引作为唯一标识，用于列表渲染性能优化
+  - data-index="{{index}}"  将当前项的索引挂载到 DOM 节点上，
+                            点击时可在 JS 的 switchTab 方法中通过 e.currentTarget.dataset.index 获取
+  - {{selected === index ? 'active' : ''}}  条件判断：当前项索引等于选中索引时，
+                                            为文字添加 active 高亮样式类
+  ============================================================
+-->
+
+<!-- 底部 TabBar 容器：固定定位在页面底部，横向排列所有 Tab 项 -->
 <view class="tab-bar">
+
+  <!--
+    单个 Tab 项：通过 wx:for 循环 list 数组渲染
+    - wx:for    遍历 list 数组，每项生成一个 .tab-item
+    - wx:key    以数组索引作为列表项的唯一 key
+    - data-index  将当前索引绑定到节点属性，供点击事件读取
+    - bindtap   绑定点击事件，触发 JS 中的 switchTab 方法进行页面跳转
+  -->
   <view class="tab-item" wx:for="{{list}}" wx:key="index"
         data-index="{{index}}" bindtap="switchTab">
+
+    <!-- Tab 图标：使用 Emoji 字符显示，如 📝、📊、👤 -->
     <text class="tab-icon">{{item.icon}}</text>
+
+    <!--
+      Tab 文字标签：
+      通过三元表达式动态添加 active 类名 ——
+      当 selected（当前选中索引）等于当前项的 index 时，
+      追加 'active' 类以实现文字高亮（变绿、加粗）效果
+    -->
     <text class="tab-text {{selected === index ? 'active' : ''}}">{{item.text}}</text>
+
   </view>
+
 </view>

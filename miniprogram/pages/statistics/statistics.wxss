@@ -1,8 +1,20 @@
+/**
+ * 统计页样式 - statistics.wxss
+ *
+ * 整体设计思路：
+ *   与首页保持一致的卡片式布局风格，使用相同的圆角、阴影和配色方案。
+ *   页面包含月份选择器、汇总卡片、饼图图例和柱状图四个主要区域。
+ *   柱状图使用纯 CSS 实现，通过 JS 计算的 rpx 高度控制柱子长度。
+ */
+
+/* ==================== 页面容器 ==================== */
+/* 底部留出 TabBar 空间 */
 .page {
   padding-bottom: 60rpx;
 }
 
-/* 月份选择 */
+/* ==================== 月份选择器 ==================== */
+/* 水平居中排列，白色卡片背景 */
 .month-selector {
   display: flex;
   align-items: center;
@@ -14,12 +26,14 @@
   box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.06);
 }
 
+/* 左右箭头按钮：绿色，带较大点击区域 */
 .month-arrow {
   padding: 10rpx 30rpx;
   font-size: 32rpx;
   color: #07c160;
 }
 
+/* 月份文字：大字号加粗，固定最小宽度防止切换时跳动 */
 .month-text {
   font-size: 38rpx;
   font-weight: bold;
@@ -27,13 +41,15 @@
   text-align: center;
 }
 
-/* 汇总 */
+/* ==================== 月度汇总区域 ==================== */
+/* 横向三栏排列 */
 .summary-row {
   display: flex;
   margin: 0 20rpx 20rpx;
   gap: 16rpx;
 }
 
+/* 单个汇总项：白色卡片居中 */
 .summary-item {
   flex: 1;
   background: #fff;
@@ -43,6 +59,7 @@
   box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.06);
 }
 
+/* 汇总标签（"收入"/"支出"/"结余"灰色小字） */
 .s-label {
   display: block;
   font-size: 28rpx;
@@ -50,15 +67,18 @@
   margin-bottom: 8rpx;
 }
 
+/* 汇总金额：加粗 */
 .s-value {
   font-size: 34rpx;
   font-weight: bold;
 }
 
+/* 收入绿色、支出红色 */
 .s-value.income { color: #07c160; }
 .s-value.expense { color: #e74c3c; }
 
-/* 图表卡片 */
+/* ==================== 图表卡片通用样式 ==================== */
+/* 图表区域统一使用白色圆角卡片 */
 .chart-card {
   margin: 0 20rpx 20rpx;
   background: #fff;
@@ -67,29 +87,34 @@
   box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.06);
 }
 
+/* 图表标题：加粗，底部留间距 */
 .chart-title {
   font-size: 34rpx;
   font-weight: bold;
   margin-bottom: 20rpx;
 }
 
+/* 图表空状态：居中灰色提示文字 */
 .chart-empty {
   text-align: center;
   padding: 60rpx 0;
   color: #ccc;
 }
 
-/* 饼图图例 */
+/* ==================== 分类支出占比 - 图例列表 ==================== */
+/* 图例列表容器，底部留出与占比条的间距 */
 .pie-legend {
   margin-bottom: 16rpx;
 }
 
+/* 单条图例行：色块 + 名称 + 金额水平排列 */
 .legend-item {
   display: flex;
   align-items: center;
   padding: 10rpx 0;
 }
 
+/* 图例色块：小圆角方块，颜色通过内联 style 动态设置 */
 .legend-color {
   width: 24rpx;
   height: 24rpx;
@@ -97,17 +122,20 @@
   margin-right: 12rpx;
 }
 
+/* 分类名称：flex:1 自动填充剩余空间 */
 .legend-name {
   flex: 1;
   font-size: 30rpx;
 }
 
+/* 金额和百分比（右对齐，灰色） */
 .legend-value {
   font-size: 28rpx;
   color: #999;
 }
 
-/* 占比条 */
+/* ==================== 分类支出占比 - 横向占比条 ==================== */
+/* 水平排列的堆叠条形图，各分类按金额比例分配宽度 */
 .pie-bar {
   display: flex;
   height: 20rpx;
@@ -115,49 +143,58 @@
   overflow: hidden;
 }
 
+/* 占比条中的单个分段：最小宽度4rpx保证极小金额也可见 */
 .bar-segment {
   min-width: 4rpx;
 }
 
-/* 柱状图 */
+/* ==================== 近6个月趋势 - 柱状图 ==================== */
+/* 柱状图容器：水平等分排列，底部对齐 */
 .bar-chart {
   display: flex;
   justify-content: space-around;
-  align-items: flex-end;
-  height: 300rpx;
+  align-items: flex-end;     /* 柱子底部对齐，顶部高度不同 */
+  height: 300rpx;            /* 总高度（含月份标签的空间） */
   padding-top: 20rpx;
 }
 
+/* 单月柱组：纵向排列（柱子在上、标签在下） */
 .bar-group {
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex: 1;
+  flex: 1;                   /* 各月等宽分配 */
 }
 
+/* 双柱容器：收入柱和支出柱水平并排，底部对齐 */
 .bars {
   display: flex;
   align-items: flex-end;
-  gap: 4rpx;
-  height: 240rpx;
+  gap: 4rpx;                 /* 两柱之间的小间距 */
+  height: 240rpx;            /* 柱子的最大高度区域 */
 }
 
+/* 单根柱子：固定宽度、顶部圆角、带高度过渡动画 */
 .bar {
   width: 24rpx;
-  border-radius: 4rpx 4rpx 0 0;
-  min-height: 4rpx;
-  transition: height 0.5s;
+  border-radius: 4rpx 4rpx 0 0; /* 仅顶部圆角 */
+  min-height: 4rpx;          /* 最小高度保证可见 */
+  transition: height 0.5s;   /* 数据变化时平滑过渡 */
 }
 
+/* 收入柱绿色、支出柱红色 */
 .income-bar { background: #07c160; }
 .expense-bar { background: #e74c3c; }
 
+/* 柱底月份标签（如"01"、"06"等） */
 .bar-label {
   font-size: 24rpx;
   color: #999;
   margin-top: 8rpx;
 }
 
+/* ==================== 柱状图底部图例行 ==================== */
+/* 水平居中排列：绿点+收入、红点+支出 */
 .chart-legend-row {
   display: flex;
   align-items: center;
@@ -168,11 +205,13 @@
   color: #666;
 }
 
+/* 图例圆点 */
 .legend-dot {
   width: 16rpx;
   height: 16rpx;
   border-radius: 50%;
 }
 
+/* 收入圆点绿色、支出圆点红色 */
 .income-dot { background: #07c160; }
 .expense-dot { background: #e74c3c; }

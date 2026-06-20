@@ -1,5 +1,18 @@
+<!-- ============================================================
+     分类管理页面模板 (category.wxml)
+     ============================================================
+     页面结构分为以下区域：
+       1. 类型切换 Tab 栏 —— 支出分类 / 收入分类
+       2. 分类列表 —— 展示当前类型下所有分类，含操作按钮
+       3. 添加按钮 —— 触发添加分类弹窗
+       4. 模态弹窗 —— 添加/编辑分类共用的输入对话框
+     ============================================================ -->
+
 <view class="page">
-  <!-- 类型切换 -->
+
+  <!-- ===== 区域1: 类型切换 Tab 栏 =====
+       两个等宽 Tab 项，选中项通过 active + expense/income 类名显示不同颜色。
+       data-type 传递类型标识，点击触发 onSwitchTab 切换并刷新列表。 -->
   <view class="tab-row">
     <view class="tab-item {{activeTab === 'expense' ? 'active expense' : ''}}"
           bindtap="onSwitchTab" data-type="expense">支出分类</view>
@@ -7,14 +20,20 @@
           bindtap="onSwitchTab" data-type="income">收入分类</view>
   </view>
 
-  <!-- 分类列表 -->
+  <!-- ===== 区域2: 分类列表 =====
+       白色卡片容器内的纵向列表，每行显示一个分类。
+       左侧：图标 + 分类名称 + 系统标签（仅默认分类显示）
+       右侧：编辑/删除按钮（仅自定义分类显示，系统默认分类不可操作） -->
   <view class="category-list">
     <view class="category-row" wx:for="{{categories}}" wx:key="id">
+      <!-- 左侧信息区 -->
       <view class="cat-left">
         <text class="cat-icon">💰</text>
         <text class="cat-name">{{item.name}}</text>
+        <!-- 系统默认分类标识：绿色边框标签 -->
         <text class="default-tag" wx:if="{{item.is_default}}">系统</text>
       </view>
+      <!-- 右侧操作区：仅非系统默认分类显示编辑/删除按钮 -->
       <view class="cat-actions" wx:if="{{!item.is_default}}">
         <text class="action-btn edit" bindtap="onEdit" data-id="{{item.id}}" data-name="{{item.name}}">编辑</text>
         <text class="action-btn delete" bindtap="onDelete" data-id="{{item.id}}">删除</text>
@@ -22,10 +41,16 @@
     </view>
   </view>
 
-  <!-- 添加按钮 -->
+  <!-- ===== 区域3: 添加分类按钮 =====
+       绿色主色调按钮，点击触发 onAdd 打开添加分类弹窗。 -->
   <button class="add-btn" bindtap="onAdd">添加分类</button>
 
-  <!-- 编辑/添加弹窗 -->
+  <!-- ===== 区域4: 模态弹窗（添加/编辑共用） =====
+       由两部分组成：
+         - modal-mask：半透明遮罩层，点击可关闭弹窗
+         - modal：居中白色弹窗，包含标题、输入框、确认/取消按钮
+       通过 wx:if="{{showModal}}" 控制显示/隐藏。
+       maxlength="8" 限制分类名称最多 8 个字符。 -->
   <view class="modal-mask" wx:if="{{showModal}}" bindtap="onCloseModal"></view>
   <view class="modal" wx:if="{{showModal}}">
     <view class="modal-title">{{modalTitle}}</view>
@@ -36,4 +61,5 @@
       <button class="modal-btn confirm" bindtap="onModalConfirm">确定</button>
     </view>
   </view>
+
 </view>
