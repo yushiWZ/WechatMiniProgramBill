@@ -1,5 +1,20 @@
+<!-- ============================================================
+     预算设置页面模板 (budget.wxml)
+     ============================================================
+     页面结构分为以下区域：
+       1. 月份选择 —— 选择要设置预算的月份
+       2. 预算金额输入 —— 输入该月预算金额
+       3. 当月已支出 —— 显示该月实际支出总额
+       4. 预算使用情况 —— 进度条可视化展示预算消耗比例
+       5. 保存按钮 —— 提交预算设置
+     ============================================================ -->
+
 <view class="page">
-  <!-- 月份选择 -->
+
+  <!-- ===== 区域1: 月份选择 =====
+       使用微信原生 picker（mode="date" fields="month"），只选择年月。
+       点击后弹出月份选择滚轮，选中后触发 onMonthChange 刷新数据。
+       monthLabel 为格式化后的展示文本（如"2026年6月"）。 -->
   <view class="section">
     <text class="s-label">预算月份</text>
     <picker mode="date" fields="month" value="{{month}}" bindchange="onMonthChange">
@@ -7,7 +22,10 @@
     </picker>
   </view>
 
-  <!-- 预算金额 -->
+  <!-- ===== 区域2: 预算金额输入 =====
+       横向排列的 ¥ 符号和数字输入框。
+       type="digit" 调起带小数点的数字键盘。
+       如果该月已有预算，amount 会回填到输入框中供用户修改。 -->
   <view class="section">
     <text class="s-label">预算金额</text>
     <view class="amount-box">
@@ -17,13 +35,21 @@
     </view>
   </view>
 
-  <!-- 当月已支出 -->
+  <!-- ===== 区域3: 当月已支出 =====
+       只读展示区域，显示当前月份的实际支出总额。
+       红色加粗字体突出显示支出金额，与预算金额形成对比。 -->
   <view class="section">
     <text class="s-label">本月已支出</text>
     <text class="spent-text">¥{{currentSpent}}</text>
   </view>
 
-  <!-- 比例显示 -->
+  <!-- ===== 区域4: 预算使用情况（进度条） =====
+       仅在该月已设定预算时显示（wx:if="{{currentBudget > 0}}"）。
+       进度条宽度 = 使用百分比（上限 100%，超出部分不溢出）。
+       颜色逻辑：
+         - percent <= 80 → 绿色（正常）
+         - percent > 80  → 红色（over 类名，预警/超支）
+       百分比文本显示在进度条下方。 -->
   <view class="section" wx:if="{{currentBudget > 0}}">
     <text class="s-label">预算使用情况</text>
     <view class="progress-bar">
@@ -32,5 +58,9 @@
     <text class="percent-text">{{percent}}%</text>
   </view>
 
+  <!-- ===== 区域5: 保存预算按钮 =====
+       绿色主色调按钮，点击触发 onSave。
+       后端采用幂等设计，同一月份重复保存会覆盖更新。 -->
   <button class="save-btn" bindtap="onSave">保存预算</button>
+
 </view>
