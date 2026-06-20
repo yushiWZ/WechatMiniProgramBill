@@ -28,7 +28,7 @@
     <view class="category-row" wx:for="{{categories}}" wx:key="id">
       <!-- 左侧信息区 -->
       <view class="cat-left">
-        <text class="cat-icon">💰</text>
+        <text class="cat-icon">{{item.icon}}</text>
         <text class="cat-name">{{item.name}}</text>
         <!-- 系统默认分类标识：绿色边框标签 -->
         <text class="default-tag" wx:if="{{item.is_default}}">系统</text>

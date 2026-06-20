@@ -22,6 +22,7 @@
  */
 
 const api = require('../../utils/api');
+const { getIcon } = require('../../utils/iconMap');
 const app = getApp();
 
 Page({
@@ -64,7 +65,7 @@ Page({
     try {
       await app.ensureLogin();
       const categories = await api.get('/api/categories', { type: this.data.activeTab });
-      this.setData({ categories });
+      this.setData({ categories: categories.map(c => ({ ...c, icon: getIcon(c.icon) })) });
     } catch (e) {
       console.error('加载分类失败:', e);
     }

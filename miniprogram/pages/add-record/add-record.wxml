@@ -32,7 +32,7 @@
     <view class="category-item {{selectedCategoryId === item.id ? 'selected' : ''}}"
           wx:for="{{categories}}" wx:key="id"
           bindtap="onSelectCategory" data-id="{{item.id}}">
-      <text class="cat-icon">💰</text>
+      <text class="cat-icon">{{item.icon}}</text>
       <text class="cat-name">{{item.name}}</text>
     </view>
   </view>

@@ -15,6 +15,7 @@
 const api = require('../../utils/api');
 // 引入通用工具函数（格式化金额、日期分组等）
 const util = require('../../utils/util');
+const { getIcon } = require('../../utils/iconMap');
 // 获取全局 App 实例，用于登录态管理
 const app = getApp();
 
@@ -104,8 +105,10 @@ Page({
         budgetPercent = budgetRes.percentage || 0;
       }
 
+      // 将数据库图标标识符映射为 emoji，确保三个页面图标一致
+      const list = (recordsRes.list || []).map(r => ({ ...r, category_icon: getIcon(r.category_icon) }));
       // 将记录列表按日期分组，生成 groups 数组用于页面渲染
-      const groups = util.groupByDate(recordsRes.list || []);
+      const groups = util.groupByDate(list);
 
       // 批量更新页面数据
       this.setData({
